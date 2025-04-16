@@ -82,11 +82,12 @@ export default function UploadView({ onFileUpload }: UploadViewProps) {
   };
 
   const handleDownloadSample = () => {
-    // Create a simple Excel template
+    // Create a simple Excel template with easy-to-understand headers
     const sampleData = [
-      ["Name", "Phone Number"],
-      ["John Doe", "1234567890"],
-      ["Jane Smith", "9876543210"]
+      ["Name", "Phone Number", "Notes (Optional)"],
+      ["John Doe", "+1 (123) 456-7890", "Work contact"],
+      ["Jane Smith", "987-654-3210", "Family"],
+      ["Michael Johnson", "555-123-4567", ""]
     ];
     
     // Convert to CSV for simplicity
@@ -103,7 +104,7 @@ export default function UploadView({ onFileUpload }: UploadViewProps) {
     
     toast({
       title: "Template Downloaded",
-      description: "Sample template has been downloaded",
+      description: "Sample template has been downloaded. Use this format for your contact list.",
     });
   };
 

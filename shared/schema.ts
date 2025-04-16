@@ -26,6 +26,7 @@ export const contacts = pgTable("contacts", {
 
 // Create schema for validating contact data
 export const contactSchema = z.object({
+  id: z.number().optional(),
   name: z.string().min(1, "Name is required"),
   phoneNumber: z.string().min(1, "Phone number is required"),
 });
