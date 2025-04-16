@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { Contact, contactSchema } from '@shared/schema';
+import { Contact, contactSchema, contactInputSchema } from '@shared/schema';
 
 /**
  * Extracts contact information from an Excel file buffer
@@ -225,15 +225,19 @@ export async function excelToContacts(buffer: Buffer): Promise<Contact[]> {
       if (isLikelyHeader) continue;
       
       try {
-        // Create a contact with ID
-        const contactData = {
-          id: contacts.length + 1,
+        // Validate contact data first
+        const contactData = contactInputSchema.parse({
           name,
           phoneNumber
+        });
+        
+        // Add the ID after validation (conforming to Contact type)
+        const contact: Contact = {
+          id: contacts.length + 1,
+          name: contactData.name,
+          phoneNumber: contactData.phoneNumber
         };
         
-        // Validate contact data
-        const contact = contactSchema.parse(contactData);
         contacts.push(contact);
       } catch (error) {
         // Skip invalid contacts but log them
